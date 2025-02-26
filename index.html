@@ -7,12 +7,12 @@
 
     <style>
         .item-img img {
-            width: 450px;
+            width: 548px;
             border-radius: 20px;
             }
 
         .color {
-            width: 50px;
+            min-width: 50px;
             margin: 5px;
             padding: 8px 5px;
             font-size: 13px;
@@ -48,21 +48,32 @@
 <body>
 
 <table>
+    <thead>
+    <tr>
+        <td>Средний цвет</td>
+        <td>Акцентный по непонятной формуле</td>
+        <td>Самый насыщенный из палитры</td>
+        <td>Палитра</td>
+        <td>Выбранные цвета</td>
+    </tr>
+    </thead>
     <tr class="item">
         <td class="item-img">
-            <div class="item-img-w">
-                <img src="1.jpg" alt="1"/>
-            </div>
+            <div class="item-img-w"><img src="1.jpg" alt="1"/></div>
         </td>
         <td class="item-img">
-            <div class="item-img-w">
-                <img src="1.jpg" alt="1"/>
-            </div>
+            <div class="item-img-w"><img src="1.jpg" alt="1"/></div>
+        </td>
+        <td class="item-img">
+            <div class="item-img-w"><img src="1.jpg" alt="1"/></div>
         </td>
         <td class="item-result"></td>
         <td class="item-accent"></td>
     </tr>
     <tr class="item">
+        <td class="item-img">
+            <div class="item-img-w"><img src="2.jpg" alt="1"/></div>
+        </td>
         <td class="item-img">
             <div class="item-img-w"><img src="2.jpg" alt="1"/></div>
         </td>
@@ -79,10 +90,16 @@
         <td class="item-img">
             <div class="item-img-w"><img src="3.jpg" alt="1"/></div>
         </td>
+        <td class="item-img">
+            <div class="item-img-w"><img src="3.jpg" alt="1"/></div>
+        </td>
         <td class="item-result"></td>
         <td class="item-accent"></td>
     </tr>
     <tr class="item">
+        <td class="item-img">
+            <div class="item-img-w"><img src="4.jpg" alt="1"/></div>
+        </td>
         <td class="item-img">
             <div class="item-img-w"><img src="4.jpg" alt="1"/></div>
         </td>
@@ -99,10 +116,16 @@
         <td class="item-img">
             <div class="item-img-w"><img src="5.jpg" alt="1"/></div>
         </td>
+        <td class="item-img">
+            <div class="item-img-w"><img src="5.jpg" alt="1"/></div>
+        </td>
         <td class="item-result"></td>
         <td class="item-accent"></td>
     </tr>
     <tr class="item">
+        <td class="item-img">
+            <div class="item-img-w"><img src="6.jpg" alt="1"/></div>
+        </td>
         <td class="item-img">
             <div class="item-img-w"><img src="6.jpg" alt="1"/></div>
         </td>
@@ -119,10 +142,16 @@
         <td class="item-img">
             <div class="item-img-w"><img src="7.jpg" alt="1"/></div>
         </td>
+        <td class="item-img">
+            <div class="item-img-w"><img src="7.jpg" alt="1"/></div>
+        </td>
         <td class="item-result"></td>
         <td class="item-accent"></td>
     </tr>
     <tr class="item">
+        <td class="item-img">
+            <div class="item-img-w"><img src="8.jpg" alt="1"/></div>
+        </td>
         <td class="item-img">
             <div class="item-img-w"><img src="8.jpg" alt="1"/></div>
         </td>
@@ -139,6 +168,9 @@
         <td class="item-img">
             <div class="item-img-w"><img src="9.jpg" alt="1"/></div>
         </td>
+        <td class="item-img">
+            <div class="item-img-w"><img src="9.jpg" alt="1"/></div>
+        </td>
         <td class="item-result"></td>
         <td class="item-accent"></td>
     </tr>
@@ -149,10 +181,16 @@
         <td class="item-img">
             <div class="item-img-w"><img src="10.jpg" alt="1"/></div>
         </td>
+        <td class="item-img">
+            <div class="item-img-w"><img src="10.jpg" alt="1"/></div>
+        </td>
         <td class="item-result"></td>
         <td class="item-accent"></td>
     </tr>
     <tr class="item">
+        <td class="item-img">
+            <div class="item-img-w"><img src="11.jpg" alt="1"/></div>
+        </td>
         <td class="item-img">
             <div class="item-img-w"><img src="11.jpg" alt="1"/></div>
         </td>
@@ -197,16 +235,21 @@
             value.querySelector(".item-result").setAttribute("style", "background: " + getRgbFromArray(color) + ";");
             value.querySelector(".item-result").appendChild(createColor(color, "Средний цвет"));
 
+            palette.sort((a, b) => calculateSaturation(a[0], a[1], a[2]) - calculateSaturation(b[0], b[1], b[2]));
+
             palette.forEach(c => {
                 value.querySelector(".item-result").appendChild(createColor(c));
             });
 
             let accent = findAccentColor(palette);
             value.querySelector(".item-accent").appendChild(createColor(accent, "Акцент"));
+            var mostSaturated = palette[palette.length - 1];
+            value.querySelector(".item-accent").appendChild(createColor(mostSaturated, "Насыщенный"));
             //value.querySelector(".item-accent").appendChild(createColor(increaseContrast(accent, 0.8)));
 
             value.querySelector(".item-img-w").setAttribute("style", "background: " + getRgbFromArray(color) + ";");
             value.querySelector(".item-img:nth-child(2) .item-img-w").setAttribute("style", "background: " + getRgbFromArray(accent) + ";");
+            value.querySelector(".item-img:nth-child(3) .item-img-w").setAttribute("style", "background: " + getRgbFromArray(mostSaturated) + ";");
         });
     }
 
@@ -265,7 +308,9 @@
         var div = document.createElement("div");
         div.setAttribute("class", "color");
         div.setAttribute("style", "background: " + getRgbFromArray(rgbArr) + ";");
-        text = text || rgbToHex(rgbArr);
+
+        const [r, g, b] = rgbArr;
+        text = text || (rgbToHex(rgbArr) + " " + calculateSaturation(r, g, b).toFixed(2));
         div.textContent = text;
 
         return div;
