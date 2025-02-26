@@ -15,6 +15,7 @@
             width: 50px;
             margin: 5px;
             padding: 8px 5px;
+            font-size: 13px;
             text-align: center;
             color: #fff;
             border-radius: 10px;
@@ -151,6 +152,16 @@
         <td class="item-result"></td>
         <td class="item-accent"></td>
     </tr>
+    <tr class="item">
+        <td class="item-img">
+            <div class="item-img-w"><img src="11.jpg" alt="1"/></div>
+        </td>
+        <td class="item-img">
+            <div class="item-img-w"><img src="11.jpg" alt="1"/></div>
+        </td>
+        <td class="item-result"></td>
+        <td class="item-accent"></td>
+    </tr>
 </table>
 
 <script>
@@ -187,7 +198,7 @@
             value.querySelector(".item-result").appendChild(createColor(color, "Средний цвет"));
 
             palette.forEach(c => {
-                value.querySelector(".item-result").appendChild(createColor(c, "Текст"));
+                value.querySelector(".item-result").appendChild(createColor(c));
             });
 
             let accent = findAccentColor(palette);
@@ -240,10 +251,21 @@
     console.log("Увеличенная контрастность:", contrastedColor); // [150, 225, 255]
 
 
+    function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(rgbArr) {
+        const [r, g, b] = rgbArr;
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+
     function createColor(rgbArr, text) {
         var div = document.createElement("div");
         div.setAttribute("class", "color");
         div.setAttribute("style", "background: " + getRgbFromArray(rgbArr) + ";");
+        text = text || rgbToHex(rgbArr);
         div.textContent = text;
 
         return div;
