@@ -1,0 +1,38 @@
+.item-img img {
+    width: 548px;
+    border-radius: 20px;
+    }
+
+.color {
+    min-width: 50px;
+    margin: 5px;
+    padding: 8px 5px;
+    font-size: 13px;
+    text-align: center;
+    color: #fff;
+    border-radius: 10px;
+    }
+
+.item-img-w {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    }
+
+
+.item-img-fader:hover {
+    background: rgba(0, 0, 0, 0.22);
+    }
+
+.item-img-fader {
+    padding-bottom: 40px;
+    }
+
+.item-img-fader:after {
+    content: 'Узнать подробнее';
+    position: absolute;
+    margin-top: 10px;
+    bottom: 14px;
+    left: 20px;
+    color: white;
+    }
