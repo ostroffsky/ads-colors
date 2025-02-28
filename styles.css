@@ -21,11 +21,12 @@
 
 
 .item-img-fader:hover {
-    background: rgba(0, 0, 0, 0.22);
+    background: transparent;
     }
 
 .item-img-fader {
     padding-bottom: 40px;
+    background: rgba(46, 47, 51, 0.36);
     }
 
 .item-img-fader:after {
